@@ -103,8 +103,8 @@ def generate_bid_document(data, output_file="Generated_Bid_Document.docx"):
                 file_name=output_file,
                 mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document" #or mime type of your file
             )
-   except Exception as e:
-        st.error(f"An error occurred during bid document generation: {e}")
+        except Exception as e:
+          st.error(f"An error occurred during bid document generation: {e}")
 
 
 # --- Streamlit UI ---
