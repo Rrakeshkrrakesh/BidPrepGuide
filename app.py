@@ -7,6 +7,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from pytesseract import image_to_string
 from PIL import Image
+from io import BytesIO
 
 # Access the API key from Streamlit secrets
 api_key = st.secrets["API_KEY"]
@@ -21,10 +22,10 @@ def process_uploaded_file(uploaded_file):
     try:
         file_content = uploaded_file.read()
         if uploaded_file.name.endswith(".pdf"):
-            reader = PdfReader(file_content)
-            extracted_text = " ".join(page.extract_text() for page in reader.pages)
+            pdf = PdfReader(BytesIO(file_content))
+            extracted_text = " ".join(page.extract_text() for page in pdf.pages)
         elif uploaded_file.name.endswith(".docx"):
-            doc = Document(file_content)
+            doc = Document(BytesIO(file_content))
             extracted_text = " ".join([p.text for p in doc.paragraphs])
         elif uploaded_file.name.endswith(".txt"):
             extracted_text = file_content.decode("utf-8")
