@@ -2,11 +2,7 @@ from PyPDF2 import PdfReader
 from docx import Document
 from pytesseract import image_to_string
 from PIL import Image
-import gemini
-
-# Gemini API Initialization
-gemini_api_key = "your_gemini_api_key"  # Replace with your actual API key
-gemini_client = gemini.Client(api_key=AIzaSyDsO43WG0w0Y9bOCahrgwgMjMlkT9pYFWg)
+import requests  # Use requests instead of `gemini`
 
 def process_uploaded_file(file):
     """Process uploaded document and extract text."""
@@ -22,9 +18,9 @@ def process_uploaded_file(file):
         return image_to_string(Image.open(file))
 
 def extract_entities_with_gemini(text):
-    """Extract entities using Gemini API."""
-    response = gemini_client.named_entity_recognition(text)
-    return response.get("entities", {})
+    """Simulate Gemini API call (replace with real API if available)."""
+    # Simulated response for now
+    return {"entities": {"dates": "2024-01-01", "eligibility": "Minimum 2 years"}}
 
 def check_eligibility(user_profile, criteria):
     """Compare user profile with extracted criteria."""
