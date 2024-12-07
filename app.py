@@ -13,7 +13,7 @@ api_key = st.secrets["API_KEY"]
 
 # Initialize Gemini client
 genai.configure(api_key=api_key)
-gemini_model = genai.GenerativeModel(model="gemini-pro")  # Use the correct model name
+gemini_model = genai.GenerativeModel("gemini-1.5-flash")
 
 # --- Function definitions ---
 
@@ -70,7 +70,9 @@ def determine_eligibility(extracted_info):
 
 def chat_with_document(text, user_message):
     try:
-        chat = gemini_model.start_chat(context=text)
+        chat = gemini_model.start_chat(
+            history=[{"role": "system", "parts": [text]}]
+        )
         response = chat.send_message(user_message)
         return response.text
     except Exception as e:
